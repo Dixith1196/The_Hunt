@@ -17,6 +17,7 @@ LOG.info('Environment variables loaded into process.env.')
 
 // log port (Heroku issue)
 const port = process.env.PORT || 3000
+app.listen(port)
 LOG.info(`Running on ${port}`)
 
 // Are we in production or development?
@@ -81,9 +82,9 @@ app.get("/",(req,res)=>{
     res.send("Hello World!!")
 })
 
-app.listen(3000, () =>{
-    console.log("The server is running on the port 3000")
-    console.log('Press CTRL-C to stop\n')
-})
+// app.listen(3000, () =>{
+//     console.log("The server is running on the port 3000")
+//     console.log('Press CTRL-C to stop\n')
+// })
 
 module.exports = router;

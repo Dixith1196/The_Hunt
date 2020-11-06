@@ -93,3 +93,9 @@
 {"message":"MongoDB URL = mongodb+srv://vikas2005:vikas@2004@cluster0.mkp5q.azure.mongodb.net/test?retryWrites=true&w=majority","level":"info"}
 {"message":"Error in MongoDB connection : {\n  \"ok\": 0,\n  \"code\": 8000,\n  \"codeName\": \"AtlasError\",\n  \"name\": \"MongoError\"\n}","level":"error"}
 {"message":"MongoDB connection succeeded.","level":"info"}
+{"message":"Environment variables loaded into process.env.","level":"info"}
+{"message":"Running on 3000","level":"info"}
+{"message":"Environment isProduction = true","level":"info"}
+{"message":"MongoDB URL = mongodb+srv://vikas2005:vikas@2004@cluster0.mkp5q.azure.mongodb.net/test?retryWrites=true&w=majority","level":"info"}
+{"message":"Error in MongoDB connection : {\n  \"ok\": 0,\n  \"code\": 8000,\n  \"codeName\": \"AtlasError\",\n  \"name\": \"MongoError\"\n}","level":"error"}
+{"message":"MongoDB connection succeeded.","level":"info"}
