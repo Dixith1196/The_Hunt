@@ -61,6 +61,15 @@ mongoose.connect(dbURI, connectionOptions, (err, client) => {
 // set the root view folder
 app.set('views', path.join(__dirname, 'views'))
 
+// specify desired view engine (EJS)
+app.set('view engine', 'ejs')
+app.engine('ejs', engines.ejs)
+
+app.use(expressLayouts)
+app.use(express.static("public"));
+
+const router = require('./routes/router')
+app.use('/', router)
 
 // log every call and pass it on for handling
 app.use((req, res, next) => {
@@ -77,4 +86,4 @@ app.listen(3000, () =>{
     console.log('Press CTRL-C to stop\n')
 })
 
-module.exports = app
+module.exports = router;
