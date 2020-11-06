@@ -1,11 +1,60 @@
 // Module Dependencies
 
-const path = require("path")
-const express = require ("express")
-const app = express()
+const path = require('path')
+const express = require ('express')
+var mongoose = require('mongoose')
 const expressLayouts = require('express-ejs-layouts')
+const engines = require('consolidate')
+const bodyParser = require('body-parser')
+const dotenv = require('dotenv')
 const LOG = require('./utils/logger.js')
 
+// create express app
+const app = express()
+
+dotenv.config({ path: '.env' })
+LOG.info('Environment variables loaded into process.env.')
+
+// log port (Heroku issue)
+const port = process.env.PORT || 3004
+LOG.info(`Running on ${port}`)
+
+// Are we in production or development?
+const isProduction = process.env.NODE_ENV === 'production'
+LOG.info(`Environment isProduction = ${isProduction}`)
+
+// Connect to NoSQL datastore........................
+
+// choose the connection
+const dbURI = isProduction ? encodeURI(process.env.ATLAS_URI) : encodeURI(process.env.LOCAL_MONGODB_URI)
+LOG.info('MongoDB URL = ' + dbURI)
+
+// get dbName
+const DB_NAME = process.env.DB_NAME
+
+// set connection options
+const connectionOptions = {
+  dbName: DB_NAME,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+}
+
+// use mongoose to connect & create a default connection
+mongoose.connect(dbURI, connectionOptions, (err, client) => {
+  if (err) { LOG.error('Error in MongoDB connection : ' + JSON.stringify(err, undefined, 2)) }
+  LOG.info('MongoDB connection succeeded.')
+})
+
+//environment variables
+// require('dotenv').config();
+
+// const uri = process.env.ATLAS_URI;
+// mongoose.connect(uri,{useNewUrlParser:true,useCreateIndex:true});
+// const connection = mongoose.connection;
+// connection.once('open', () => {
+// console.log("Connected Database Successfully");
+// });
 
 // specify desired view engine (EJS)
 
