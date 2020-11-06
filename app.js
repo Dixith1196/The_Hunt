@@ -16,7 +16,7 @@ dotenv.config({ path: '.env' })
 LOG.info('Environment variables loaded into process.env.')
 
 // log port (Heroku issue)
-const port = process.env.PORT || 3004
+const port = process.env.PORT || 3000
 LOG.info(`Running on ${port}`)
 
 // Are we in production or development?
