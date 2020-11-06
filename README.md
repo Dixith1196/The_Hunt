@@ -19,7 +19,7 @@
 - Use "npm run start" or "npm run dev" to start a local version.
 - Open a browser and use the localhost to run the application locally with the port shown.
 
-## MEAN Stack:
+## Stack:
 - Platform : Node(15.1.0),
 - Web Framework : Express,
 - View Engine : EJS,
