@@ -47,6 +47,25 @@ mongoose.connect(dbURI, connectionOptions, (err, client) => {
   LOG.info('MongoDB connection succeeded.')
 })
 
+
+// Get the default connection
+const connection = mongoose.connection
+
+// Resusable function to seed a collection of documents
+function seed(collectionName) {
+  LOG.info(`Seeding collection = ${collectionName}`)
+  connection.db.collection(collectionName, (err, c) => {
+    if (err) { LOG.error('Error adding collection.') }
+    c.countDocuments((err, count) => {
+      if (err) { LOG.error('Error counting documents in collection.') }
+      if (count === 0) { c.insertMany(require('./data/' + collectionName + '.json')) }
+    })
+    c.find({}).toArray((err, data) => {
+      if (err) { LOG.error('Error adding data to collection.') }
+      LOG.info(data)
+    })
+  })
+}
 //environment variables
 // require('dotenv').config();
 
@@ -60,6 +79,17 @@ mongoose.connect(dbURI, connectionOptions, (err, client) => {
 // specify desired view engine (EJS)
 
 // set the root view folder
+
+connection.once('open', function () {
+  LOG.info('MongoDB event open')
+  LOG.info(`MongoDB connected ${dbURI}\n`)
+
+})
+
+// configure app.settings.............................
+app.set('host', process.env.HOST)
+
+
 app.set('views', path.join(__dirname, 'views'))
 
 // specify desired view engine (EJS)
