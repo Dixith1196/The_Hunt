@@ -2,7 +2,7 @@
 
 ## Links:
 - Github : https://github.com/Dixith1196/hunt
-- Herku Link: https://nhunt.herokuapp.com/
+- Heroku Link: https://nhunt.herokuapp.com/
 
 ## Team Members:
 - Deekshith Maram
