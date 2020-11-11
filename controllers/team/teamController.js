@@ -70,3 +70,6 @@ api.get('/delete/:id',(req, res)=>{
         return res.render(`team/delete.ejs`)
     })
 })
+
+
+module.exports = api
