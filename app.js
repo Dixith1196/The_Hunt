@@ -84,6 +84,7 @@ connection.once('open', function () {
   LOG.info('MongoDB event open')
   LOG.info(`MongoDB connected ${dbURI}\n`)
 
+  seed('user')
   seed('team')
 
 })

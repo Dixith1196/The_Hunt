@@ -13,7 +13,14 @@ const UserSchema = new mongoose.Schema({
         maxlength: 100,
         required: true,
         unique: true
+    },
+    password: {
+        type: String,
+        minlength: 6,
+        maxlength:10,
+        required: true
     }
+
 
 })
 // Export model
