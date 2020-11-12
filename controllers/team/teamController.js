@@ -72,4 +72,71 @@ api.get('/delete/:id',(req, res)=>{
 })
 
 
+// GET one
+
+api.get('/edit/:id', (req, res) => {
+    LOG.info(`Handling GET /edit/:id ${req}`)
+    const id = parseInt(req.params.id)
+    TeamModel.find({ teamid: id }, (err, results) => {
+      if (err) { 
+          return res.end(`Could not find the record`) 
+        }
+      LOG.info(`RETURNING VIEW FOR${JSON.stringify(results)}`)
+      res.locals.student = results[0]
+      return res.render('team/edit.ejs')
+    })
+  })
+
+  // RESPOND WITH DATA MODIFICATIONS 
+
+  // POST new
+
+  api.post('/save',(req,res)=>{
+      LOG.info(`Handling the POST ${req}`)
+      LOG.debug(JSON.stringify(req.body))
+      const item = new TeamModel()
+      LOG.info(`New Id ${req.body.teamid}`)
+      item.teamid = parseInt(req.body.teamid)
+      item.teamname = req.body.teamname
+      item.save((err)=>{
+          if(err){
+              return res.end('ERROR: Team couldnot be saved')
+          }
+          LOG.info(`Saving new Team ${JSON.stringify(item)}`)
+          return res.redirect('/teamController')
+      })
+  })
+
+// POST update with id
+api.post('/save/:id', (req, res) => {
+    LOG.info(`Handling SAVE request ${req}`)
+    const id = parseInt(req.params.id)
+    LOG.info(`Handling SAVING ID:${id}`)
+    TeamModel.updateOne({teamid: id },
+      { // use mongoose field update operator $set
+        $set: {
+          teamid: parseInt(req.body.teamid),
+          teamname: req.body.teamname,
+        }
+      },
+      (err, item) => {
+        if (err) { return res.end(`Record with the specified id not found`) }
+        LOG.info(`ORIGINAL VALUES ${JSON.stringify(item)}`)
+        LOG.info(`UPDATED VALUES: ${JSON.stringify(req.body)}`)
+        LOG.info(`SAVING UPDATED product ${JSON.stringify(item)}`)
+        return res.redirect('/teamController')
+      })
+  })
+
+  // DELETE id (uses HTML5 form method POST)
+api.post('/delete/:id', (req, res) => {
+    LOG.info(`Handling DELETE request ${req}`)
+    const id = parseInt(req.params.id)
+    LOG.info(`Handling REMOVING ID=${id}`)
+    TeamModel.remove({ teamid: id }).setOptions({ single: true }).exec((err, deleted) => {
+      if (err) { return res.end(`Id not found`) }
+      console.log(`Permanently deleted item ${JSON.stringify(deleted)}`)
+      return res.redirect('/teamController')
+    })
+  })
 module.exports = api
