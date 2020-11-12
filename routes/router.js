@@ -70,5 +70,7 @@ router.get('/', (req, res) => {
     res.render('./location/delete', { title: "Locationdelete"})
   })
   
+  // Route Requests that start with an expressionn to a controller
 
+  router.use('/team', require('../controllers/team/teamController'))
   module.exports = router;
