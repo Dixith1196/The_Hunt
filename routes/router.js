@@ -1,5 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const bodyParser = require('body-parser');
+router.use(bodyParser.urlencoded({ extended: true }));
+const teamController = require('../controllers/team/teamController')
+const userController = require('../controllers/user/userController')
 
 
 
@@ -72,5 +76,7 @@ router.get('/', (req, res) => {
   
   // Route Requests that start with an expressionn to a controller
 
-  router.use('/team', require('../controllers/team/teamController'))
+  
+  router.use('/user', userController)
+  router.use('/team', teamController)
   module.exports = router;

@@ -1,6 +1,10 @@
 const express = require('express')
 const { Model } = require('mongoose')
 const api = express.Router()
+
+const bodyParser = require('body-parser');
+api.use(bodyParser.json())
+api.use(bodyParser.urlencoded({ extended: true }));
 const TeamModel = require('../../models/team')
 const LOG = require('../../utils/logger')
 
@@ -92,18 +96,23 @@ api.get('/edit/:id', (req, res) => {
   // POST new
 
   api.post('/save',(req,res)=>{
-      LOG.info(`Handling the POST ${req}`)
-      LOG.debug(JSON.stringify(req.body))
-      const item = new TeamModel()
-      LOG.info(`New Id ${req.body.teamid}`)
-      item.teamid = parseInt(req.body.teamid)
-      item.teamname = req.body.teamname
-      item.save((err)=>{
+      const body = req.body
+      const team = new TeamModel(body)
+      console.log(team,"body is here")
+      team.save((err) => {
           if(err){
-              return res.end('ERROR: Team couldnot be saved')
+              return res.status().json({"msg": err})
+            //   return res.end('ERROR: Team couldnot be saved')
+          }else{
+            // console.log("successful----", team)
+            return res.json({
+                "error": false,
+                data: team
+            })
           }
-          LOG.info(`Saving new Team ${JSON.stringify(item)}`)
-          return res.redirect('/teamController')
+        
+        //   LOG.info(`Saving new Team ${JSON.stringify(team1)}`)
+        //   return res.redirect('/teamController')
       })
   })
 
