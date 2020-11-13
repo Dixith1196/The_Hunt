@@ -56,7 +56,7 @@ api.get('/create',(req,res)=>{
     TeamModel.find({},(err,data)=>{
         res.locals.teams =data
         res.locals.team = new Model()
-        res.render('team/create')
+        res.render('team/create.ejs')
     })
 })
 
@@ -132,7 +132,7 @@ api.post('/save/:id', (req, res) => {
         if (err) { return res.end(`Record with the specified id not found`) }
         console.log(`ORIGINAL VALUES ${JSON.stringify(item)}`)
         console.log(`UPDATED VALUES: ${JSON.stringify(req.body)}`)
-        console.log(`SAVING UPDATED product ${JSON.stringify(item)}`)
+        console.log(`SAVING UPDATED team ${JSON.stringify(item)}`)
         return res.redirect('/teamController')
       })
   })
