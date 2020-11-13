@@ -7,28 +7,28 @@ const expressLayouts = require('express-ejs-layouts')
 const engines = require('consolidate')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
-const LOG = require('./utils/logger.js')
+// const LOG = require('./utils/logger.js')
 
 // create express app
 const app = express()
 
 dotenv.config({ path: '.env' })
-LOG.info('Environment variables loaded into process.env.')
+console.log('Environment variables loaded into process.env.')
 
 // log port (Heroku issue)
 const port = process.env.PORT || 3000
 app.listen(port)
-LOG.info(`Running on ${port}`)
+console.log(`Running on ${port}`)
 
 // Are we in production or development?
 const isProduction = process.env.NODE_ENV === 'production'
-LOG.info(`Environment isProduction = ${isProduction}`)
+console.log(`Environment isProduction = ${isProduction}`)
 
 // Connect to NoSQL datastore........................
 
 // choose the connection
 const dbURI = isProduction ? encodeURI(process.env.ATLAS_URI) : encodeURI(process.env.LOCAL_MONGODB_URI)
-LOG.info('MongoDB URL = ' + dbURI)
+console.log('MongoDB URL = ' + dbURI)
 console.log(dbURI,"----db url is here")
 
 // get dbName
@@ -44,8 +44,8 @@ const connectionOptions = {
 
 // use mongoose to connect & create a default connection
 mongoose.connect(dbURI, connectionOptions, (err, client) => {
-  if (err) { LOG.error('Error in MongoDB connection : ' + JSON.stringify(err, undefined, 2)) }
-  LOG.info('MongoDB connection succeeded.')
+  if (err) { console.log('Error in MongoDB connection : ' + JSON.stringify(err, undefined, 2)) }
+  console.log('MongoDB connection succeeded.')
 })
 
 
@@ -54,16 +54,16 @@ const connection = mongoose.connection
 
 // Resusable function to seed a collection of documents
 function seed(collectionName) {
-  LOG.info(`Seeding collection = ${collectionName}`)
+  console.log(`Seeding collection = ${collectionName}`)
   connection.db.collection(collectionName, (err, c) => {
-    if (err) { LOG.error('Error adding collection.') }
+    if (err) { console.log('Error adding collection.') }
     c.countDocuments((err, count) => {
-      if (err) { LOG.error('Error counting documents in collection.') }
+      if (err) { console.log('Error counting documents in collection.') }
       if (count === 0) { c.insertMany(require('./data/' + collectionName + '.json')) }
     })
     c.find({}).toArray((err, data) => {
-      if (err) { LOG.error('Error adding data to collection.') }
-      LOG.info(data)
+      if (err) { console.log('Error adding data to collection.') }
+      console.log(data)
     })
   })
 }
@@ -82,11 +82,11 @@ function seed(collectionName) {
 // set the root view folder
 
 connection.once('open', function () {
-  LOG.info('MongoDB event open')
-  LOG.info(`MongoDB connected ${dbURI}\n`)
+  console.log('MongoDB event open')
+  console.log(`MongoDB connected ${dbURI}\n`)
 
-  seed('user')
-  seed('team')
+  // seed('user')
+  // seed('team')
 
 })
 
@@ -108,7 +108,7 @@ app.use('/', router)
 
 // log every call and pass it on for handling
 app.use((req, res, next) => {
-    LOG.debug(`${req.method} ${req.url}`)
+  console.log(`${req.method} ${req.url}`)
     next()
   })
 
