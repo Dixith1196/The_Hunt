@@ -6,13 +6,13 @@ const bodyParser = require('body-parser');
 api.use(bodyParser.json())
 api.use(bodyParser.urlencoded({ extended: true }));
 const TeamModel = require('../../models/team')
-const LOG = require('../../utils/logger')
+// const LOG = require('../../utils/logger')
 
 
 // GET all the data
 
 api.get('/findall', (req, res) => {
-    LOG.info(`The function handling the /findall ${req}`)
+  console.log(`The function handling the /findall ${req}`)
     TeamModel.find({}, (err, data) => {
         if (err) {
             return res.end('Error finding the /findall')
@@ -25,7 +25,7 @@ api.get('/findall', (req, res) => {
 // GET the data by id
 
 api.get('/findone/:id', (req, res) => {
-    LOG.info(`Handling /findone ${req}`)
+  console.log(`Handling /findone ${req}`)
     const id = parseInt(req.params.id)
     TeamModel.find({ teamid: id }, (err, result) => {
         if (err) { return res.end(`Could not find the record for the teamid: ${id}`) }
@@ -37,7 +37,7 @@ api.get('/findone/:id', (req, res) => {
 // GET to this controller 
 
 api.get('/',(req,res)=>{
-    LOG.info(`Handling GET / ${req}`)
+  console.log(`Handling GET / ${req}`)
     TeamModel.find({},(err,data)=>{
         if (err) {
             return res.end('error on create')
@@ -52,7 +52,7 @@ api.get('/',(req,res)=>{
 // GET create
 
 api.get('/create',(req,res)=>{
-    LOG.info(`Handling GET /create ${req}`)
+  console.log(`Handling GET /create ${req}`)
     TeamModel.find({},(err,data)=>{
         res.locals.teams =data
         res.locals.team = new Model()
@@ -63,13 +63,13 @@ api.get('/create',(req,res)=>{
 // GET /delete/:id
 
 api.get('/delete/:id',(req, res)=>{
-    LOG.info(`Handling GET /delete/:id ${req}`)
+  console.log(`Handling GET /delete/:id ${req}`)
     const id = parseInt(req.params.id)
     TeamModel.find({teamid:id},(err, results) =>{
         if(err) {
             return res.end(`Could not find the record to delete`)
         }
-        LOG.info(`RETURNING VIEW FOR ${JSON.stringify(results)}`)
+        console.log(`RETURNING VIEW FOR ${JSON.stringify(results)}`)
         res.locals.team = results[0]
         return res.render(`team/delete.ejs`)
     })
@@ -79,13 +79,13 @@ api.get('/delete/:id',(req, res)=>{
 // GET one
 
 api.get('/edit/:id', (req, res) => {
-    LOG.info(`Handling GET /edit/:id ${req}`)
+  console.log(`Handling GET /edit/:id ${req}`)
     const id = parseInt(req.params.id)
     TeamModel.find({ teamid: id }, (err, results) => {
       if (err) { 
           return res.end(`Could not find the record`) 
         }
-      LOG.info(`RETURNING VIEW FOR${JSON.stringify(results)}`)
+        console.log(`RETURNING VIEW FOR${JSON.stringify(results)}`)
       res.locals.student = results[0]
       return res.render('team/edit.ejs')
     })
@@ -118,9 +118,9 @@ api.get('/edit/:id', (req, res) => {
 
 // POST update with id
 api.post('/save/:id', (req, res) => {
-    LOG.info(`Handling SAVE request ${req}`)
+  console.log(`Handling SAVE request ${req}`)
     const id = parseInt(req.params.id)
-    LOG.info(`Handling SAVING ID:${id}`)
+    console.log(`Handling SAVING ID:${id}`)
     TeamModel.updateOne({teamid: id },
       { // use mongoose field update operator $set
         $set: {
@@ -130,18 +130,18 @@ api.post('/save/:id', (req, res) => {
       },
       (err, item) => {
         if (err) { return res.end(`Record with the specified id not found`) }
-        LOG.info(`ORIGINAL VALUES ${JSON.stringify(item)}`)
-        LOG.info(`UPDATED VALUES: ${JSON.stringify(req.body)}`)
-        LOG.info(`SAVING UPDATED product ${JSON.stringify(item)}`)
+        console.log(`ORIGINAL VALUES ${JSON.stringify(item)}`)
+        console.log(`UPDATED VALUES: ${JSON.stringify(req.body)}`)
+        console.log(`SAVING UPDATED product ${JSON.stringify(item)}`)
         return res.redirect('/teamController')
       })
   })
 
   // DELETE id (uses HTML5 form method POST)
 api.post('/delete/:id', (req, res) => {
-    LOG.info(`Handling DELETE request ${req}`)
+  console.log(`Handling DELETE request ${req}`)
     const id = parseInt(req.params.id)
-    LOG.info(`Handling REMOVING ID=${id}`)
+    console.log(`Handling REMOVING ID=${id}`)
     TeamModel.remove({ teamid: id }).setOptions({ single: true }).exec((err, deleted) => {
       if (err) { return res.end(`Id not found`) }
       console.log(`Permanently deleted item ${JSON.stringify(deleted)}`)
