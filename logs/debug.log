@@ -200,3 +200,9 @@
 {"message":"MongoDB connection succeeded.","level":"info"}
 {"message":[{"_id":"5fab4ee0993c2044b092bb2e","userid":1,"email":"baswapuram.vikas@gmail.com","password":"vikas1"},{"_id":"5fab4ee0993c2044b092bb2f","userid":1,"email":"S538336@nwmissouri.edu","password":"baswapuram"}],"level":"info"}
 {"message":[{"_id":"5fab1d51a952093df478ca83","teamid":1,"teamname":"Geeks"},{"_id":"5fab1d51a952093df478ca84","teamid":2,"teamname":"Avengers"}],"level":"info"}
+{"message":"Environment variables loaded into process.env.","level":"info"}
+{"message":"Running on 3000","level":"info"}
+{"message":"Environment isProduction = false","level":"info"}
+{"message":"MongoDB URL = undefined","level":"info"}
+{"message":"Error in MongoDB connection : {\n  \"name\": \"MongoParseError\"\n}","level":"error"}
+{"message":"MongoDB connection succeeded.","level":"info"}
