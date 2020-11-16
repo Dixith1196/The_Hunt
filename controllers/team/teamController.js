@@ -38,15 +38,15 @@ api.get('/findone/:id', (req, res) => {
 
 // GET to this controller 
 
-api.get('/',(req,res)=>{
+api.get('/getTeam', async (req,res)=>{
   console.log(`Handling GET / ${req}`)
-    TeamModel.find({},(err,data)=>{
+   await TeamModel.find({},(err,data)=>{
         if (err) {
             return res.end('error on create')
         }
         res.locals.teams = data
         console.log(res.locals.teams, "teams are here")
-        res.render('user/index.js')
+        res.render('team/details', {title: 'team', res})
     })
 })
 
@@ -65,18 +65,19 @@ api.get('/create',(req,res)=>{
 
 // GET /delete/:id
 
-api.get('/delete/:id',(req, res)=>{
-  console.log(`Handling GET /delete/:id ${req}`)
-    const id = parseInt(req.params.id)
-    TeamModel.find({teamid:id},(err, results) =>{
-        if(err) {
-            return res.end(`Could not find the record to delete`)
-        }
-        console.log(`RETURNING VIEW FOR ${JSON.stringify(results)}`)
-        res.locals.team = results[0]
-        return res.render(`team/delete.ejs`)
-    })
+api.post('/delete/:id', (req, res) => {
+  console.log(req.params,'delete hits')
+  // LOG.info(`Handling DELETE request ${req}`)
+  const id = parseInt(req.params.id)
+  // LOG.info(`Handling REMOVING ID=${id}`)
+  TeamModel.remove({ teamid: id }).setOptions({ single: true }).exec((err, deleted) => {
+    if (err) { return res.end("URL NOT found") }
+    console.log(`Permanently deleted item ${JSON.stringify(deleted)}`)
+    return res.redirect('/team/getTeam')
+  })
 })
+
+
 
 
 // GET one

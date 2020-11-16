@@ -65,15 +65,16 @@ router.get('/', (req, res) => {
     res.render('./player/details', { title: "profile"})
   })
   
-  router.get('/team/getTeam', (req, res, next) => {
-    console.log(teams,"teams are here")
-    res.render('./team/details', { title: "Teams", require: axios, teams: teams})
-  })
+  // router.get('/team/getTeam', (req, res, next) => {
+  //   console.log(teams,"teams are here")
+  //   res.render('./team/details')
+  // })
+
+  // router.get('/team', teamController)
   
   router.get('/team/createTeam', (req, res, next) => {
     res.render('./team/create', { title: "Team", require: axios})
   })
-  
   
   router.get('/team/invitePlayers', (req, res, next) => {
     res.render('./team/invitePlayers', { title: "Invite Players"})

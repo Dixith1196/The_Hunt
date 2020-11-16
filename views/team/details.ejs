@@ -1,20 +1,23 @@
-/**
- * @   .ejs
- *
- * This is the page where it will show the details of teams
- * @author Swaroop Reddy
- */
-
- <br>
+<br>
 <br>
 
 <div class="container-fluid">
     <div class=row>
         <div class="col col-md-12">
-        
-            <!-- <form method="get" action="/team/findall">
-                <input type="submit" value="Get Teams" class="btn btn-caution" />
-            </form> -->
+           
+
+             <% for(var i=0; i<teams.length; i++) {%>
+                <tr>
+                    <td><%= teams[i].teamname %></td>
+                    <label>Edit</label>
+                    <form method="post" action="/team/delete/<%=teams[i].teamid%>">
+                        <input type="submit" value="Delete" />
+                    </form>
+                   
+                    <br />
+                </tr>
+            <%} %>
+
 
         </div>
     </div>
