@@ -12,11 +12,13 @@ const TeamModel = require('../../models/team')
 // GET all the data
 
 api.get('/findall', (req, res) => {
+  console.log("find all hits")
   console.log(`The function handling the /findall ${req}`)
     TeamModel.find({}, (err, data) => {
         if (err) {
             return res.end('Error finding the /findall')
         }
+        console.log(data,"data is here")
         res.json(data)
     })
 })
@@ -43,6 +45,7 @@ api.get('/',(req,res)=>{
             return res.end('error on create')
         }
         res.locals.teams = data
+        console.log(res.locals.teams, "teams are here")
         res.render('user/index.js')
     })
 })

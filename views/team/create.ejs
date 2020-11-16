@@ -4,14 +4,40 @@
  * This is the layout for team Create page.
  * @author Swaroop Reddy Gottigundala
  */
+<body>
+    <main>
 
  <form>
     <div class="container">
         <div class="form-group">
-            <input class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4 bg-white" type=" email"
+            <input id="tname" class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4 bg-white" type="text"
                 placeholder="Enter Team Name">
             </input>
         </div>
-        <button type="submit"  class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4" style="background-color: #00674c; color: white; padding: 0px;border-radius: 6px;align-self: center; height: 30px;width: 120px;justify-content: center;" value="teamSubmit" id="teamSubmit">Submit
+        <button type="submit" onclick="createTeam()"  class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4" style="background-color: #00674c; color: white; padding: 0px;border-radius: 6px;align-self: center; height: 30px;width: 120px;justify-content: center;" value="teamSubmit" id="teamSubmit">Submit
         </div>
 </form>
+<script>
+    function createTeam(){
+
+       
+      const teamName = document.getElementById('tname').value;
+      if(teamName != "" ){
+
+      const body = {
+        teamid: 11,
+        teamname: teamName
+      }
+      axios.post('/team/save', body)
+      .then((res) => alert(res))
+      .catch((e) => alert(e))
+    }else{
+        alert("Team Name is empty")
+    }
+    
+    }
+</script>
+            
+</main>
+</body>
+

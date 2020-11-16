@@ -1,0 +1,19 @@
+
+  <div class="container" style="height: 100%; display: flex; flex-direction: column; align-content: center; align-self: center; justify-content: center;  align-items: center;">  
+    <button type="button" id="button1" style="background-color: #00674c; color: white; border-radius: 6px;align-self: center; justify-content: center;" onclick="goToCreateTeam()" class="btn">Create Team</button>
+    <br><br>        
+    <button type="button" id="button2" style="background-color: #00674c; color: white; border-radius: 6px;align-self: center; justify-content: center;" onclick="goToQuest()" class="btn">Create Quest</button>
+</div>
+
+<script>
+
+function goToCreateTeam(){
+  alert('You will be creating a Team!')
+  window.location="/team/createTeam"
+}
+
+ function goToQuest(){
+    alert('You will be creating a Quest!')
+    window.location="/quest/createQuest"
+  }
+</script>

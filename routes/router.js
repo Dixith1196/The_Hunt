@@ -1,10 +1,14 @@
 const express = require('express')
-const router = express.Router()
+const axios = require('axios')
 const bodyParser = require('body-parser');
+const router = express.Router()
+
 router.use(bodyParser.urlencoded({ extended: true }));
 const teamController = require('../controllers/team/teamController')
 const userController = require('../controllers/user/userController')
+var mongoose = require('mongoose')
 
+const teams = require('../models/team')
 
 
 router.get('/', (req, res) => {
@@ -46,7 +50,7 @@ router.get('/', (req, res) => {
   })
   
   router.get('/create_competition', (req, res, next) => {
-    res.render('./competition/create', { title: 'Register'})
+    res.render('../views/competiton/create', { title: 'Create Competition'})
   })
   
   router.get('/createScreen', (req, res, next) => {
@@ -61,9 +65,13 @@ router.get('/', (req, res) => {
     res.render('./player/details', { title: "profile"})
   })
   
+  router.get('/team/getTeam', (req, res, next) => {
+    console.log(teams,"teams are here")
+    res.render('./team/details', { title: "Teams", require: axios, teams: teams})
+  })
   
   router.get('/team/createTeam', (req, res, next) => {
-    res.render('./team/create', { title: "Team"})
+    res.render('./team/create', { title: "Team", require: axios})
   })
   
   
