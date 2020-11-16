@@ -79,4 +79,5 @@ router.get('/', (req, res) => {
   
   router.use('/user', userController)
   router.use('/team', teamController)
+  
   module.exports = router;
