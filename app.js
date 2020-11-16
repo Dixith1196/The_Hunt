@@ -52,6 +52,7 @@ mongoose.connect(dbURI, connectionOptions, (err, client) => {
 // Get the default connection
 const connection = mongoose.connection
 
+
 // Resusable function to seed a collection of documents
 function seed(collectionName) {
   console.log(`Seeding collection = ${collectionName}`)
