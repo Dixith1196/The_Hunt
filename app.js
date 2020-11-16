@@ -25,9 +25,9 @@ const isProduction = process.env.NODE_ENV === 'production'
 console.log(`Environment isProduction = ${isProduction}`)
 
 // Connect to NoSQL datastore........................
-
+console.log(process.env.ATLAS_URI, "uri is here")
 // choose the connection
-const dbURI = isProduction ? encodeURI(process.env.ATLAS_URI) : encodeURI(process.env.LOCAL_MONGODB_URI)
+const dbURI = isProduction ? encodeURI("mongodb+srv://vikas2005:vikas2005@cluster0.mkp5q.azure.mongodb.net/test?retryWrites=true&w=majority") : encodeURI(process.env.LOCAL_MONGODB_URI)
 console.log('MongoDB URL = ' + dbURI)
 console.log(dbURI,"----db url is here")
 
