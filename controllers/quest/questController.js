@@ -124,6 +124,8 @@ api.post('/save/:id', (req, res) => {
             $set: {
                 questid: parseInt(req.body.questid),
                 questname: req.body.questname,
+                queststartlocationlongitude: parseInt(req.body.queststartlocationlongitude),
+                queststartlocationlatitude: parseInt(req.body.queststartlocationlongitude),
             }
         },
         (err, item) => {
