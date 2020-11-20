@@ -1,0 +1,41 @@
+<body>
+    <main>
+
+        <form action = "../update/<%= teamid %>" method="POST">
+
+            <div class="container">
+                <div class="form-group">
+                    <input class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4 bg-white"
+                        type="text" id="tname" name="tName" value="<%= teamName %>">
+                    </input>
+                </div>
+                <button type="submit"
+                    class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4"
+                    style="background-color: #00674c; color: white; padding: 0px;border-radius: 6px;align-self: center; height: 30px;width: 120px;justify-content: center;"
+                     value="teamSubmit" id="teamSubmit">Submit</button>
+            </div>
+        </form>
+        <script>
+            function teamEdit() {
+                const tname = document.getElementById('tname').value;
+                // alert(tname, " is created")
+                if (tname != "") {
+                    console.log(`entered if`)
+                    const body = {
+                        teamName: tname
+                    }
+                    //alert('into the if')
+                    // axios.post('/team/update', body)
+                    //     .then((res) => console.log(res, "-----response"))
+                    //     .catch((e) => console.log(e, "----error"))
+                    // alert(tname+" has been created")
+                    location.href='/team/update'
+
+                } else {
+                    alert("Team Name is empty")
+                }
+
+            }
+        </script>
+    </main>
+</body>
