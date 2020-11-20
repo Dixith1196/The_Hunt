@@ -5,7 +5,6 @@ autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(connection)
 
 const QuestSchema = new Schema({
-
    
     questname: {
         type: String,
