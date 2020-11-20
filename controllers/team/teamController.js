@@ -8,34 +8,6 @@ api.use(bodyParser.urlencoded({ extended: true }));
 const TeamModel = require('../../models/team')
 // const LOG = require('../../utils/logger')
 
-
-// GET all the data
-
-api.get('/findall', (req, res) => {
-  console.log("find all hits")
-  console.log(`The function handling the /findall ${req}`)
-    TeamModel.find({}, (err, data) => {
-        if (err) {
-            return res.end('Error finding the /findall')
-        }
-        console.log(data,"data is here")
-        res.json(data)
-    })
-})
-
-
-// GET the data by id
-
-api.get('/findone/:id', (req, res) => {
-  console.log(`Handling /findone ${req}`)
-    const id = parseInt(req.params.id)
-    TeamModel.find({ teamid: id }, (err, result) => {
-        if (err) { return res.end(`Could not find the record for the teamid: ${id}`) }
-        res.json(results[0])
-    })
-})
-
-
 // GET to this controller 
 
 api.get('/getTeam', async (req,res)=>{
@@ -50,18 +22,6 @@ api.get('/getTeam', async (req,res)=>{
     })
 })
 
-// Respond with views
-
-// GET create
-
-api.get('/create',(req,res)=>{
-  console.log(`Handling GET /create ${req}`)
-    TeamModel.find({},(err,data)=>{
-        res.locals.teams =data
-        res.locals.team = new Model()
-        res.render('team/create.ejs')
-    })
-})
 
 // GET /delete/:id
 
@@ -78,24 +38,29 @@ api.post('/delete/:id', (req, res) => {
 })
 
 
-
-
 // GET one
 
-api.get('/edit/:id', (req, res) => {
-  console.log(`Handling GET /edit/:id ${req}`)
-    const id = parseInt(req.params.id)
-    TeamModel.find({ teamid: id }, (err, results) => {
-      if (err) { 
-          return res.end(`Could not find the record`) 
-        }
-        console.log(`RETURNING VIEW FOR${JSON.stringify(results)}`)
-      res.locals.student = results[0]
-      return res.render('team/edit.ejs')
+api.post('/edit/:teamId', (req, res) => {
+  console.log(` update request ${req.body}`)
+  const tId = parseInt(req.params.teamId)
+  // console.log(`Handling SAVING ID:${id}`)
+  TeamModel.updateOne({teamid: tId },
+    { 
+      // use mongoose field update operator $set
+      $set: {
+        teamname: req.body.teamname
+      }
+    },
+    (err, item) => {
+      if (err) { return res.end(`Record with the specified id not found`) }
+      return res.json({
+        "error": false,
+        data: TeamModel
+    })
+
     })
   })
 
-  // RESPOND WITH DATA MODIFICATIONS 
 
   // POST new
 
@@ -152,4 +117,5 @@ api.post('/delete/:id', (req, res) => {
       return res.redirect('/teamController')
     })
   })
+
 module.exports = api
