@@ -49,9 +49,9 @@
 - https://github.com/denisecase/web-app-2020-fall
  
  ## Contributors:
-- Deekshith Maram
-- Vikas Baswapuram
-- Chandrakanth Polishetty
-- Sumanth Reddy Naidu
-- Venkatayashwanth Damera
-- Swaroop Reddy Gottigundala
+## Contributors
+
+<table>
+<td align="center"><a href="https://github.com/sudheera96"><img src="https://avatars2.githubusercontent.com/u/60023341?s=400&u=fb45357be42f7f2b97401c4e7f6e607b781c8f8b&v=4" width="100px;" alt=""/><br /><sub><b>Deekshith Maram</b></sub></a><br /><a href="https://github.com/Dixith1196" title="Code" width="18" height="18">💻</a></td>
+  
+</table>
