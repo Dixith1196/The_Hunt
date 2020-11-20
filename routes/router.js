@@ -6,6 +6,7 @@ const router = express.Router()
 router.use(bodyParser.urlencoded({ extended: true }));
 const teamController = require('../controllers/team/teamController')
 const userController = require('../controllers/user/userController')
+const questController = require('../controllers/quest/questController')
 var mongoose = require('mongoose')
 
 const teams = require('../models/team')
@@ -88,5 +89,6 @@ router.get('/', (req, res) => {
   
   router.use('/user', userController)
   router.use('/team', teamController)
+  router.use('/quest', questController)
   
   module.exports = router;

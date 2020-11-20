@@ -14,22 +14,19 @@ const QuestSchema = new Schema({
         unique: true
     },
     queststartlocationlongitude: {
-        type: Number,
+        type: String,
         required: true,
-        unique: true
-        
+        // unique: true  
     },
     queststartlocationlatitude: {
-        type: Number,
+        type: String,
         required: true,
-        unique: true
-        
+        // unique: true     
     },
-
-    creatoruserid: [{
+    creatoruserid: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }
 
 });
 QuestSchema.plugin(autoIncrement.plugin, {
