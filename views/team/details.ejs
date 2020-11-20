@@ -4,18 +4,32 @@
 <div class="container-fluid">
     <div class=row>
         <div class="col col-md-12">
-           
 
-             <% for(var i=0; i<teams.length; i++) {%>
-                <tr>
-                    <td><%= teams[i].teamname %></td>
-                    <label>Edit</label>
-                    <form method="post" action="/team/delete/<%=teams[i].teamid%>">
-                        <input type="submit" value="Delete" />
-                    </form>
-                   
-                    <br />
-                </tr>
+
+            <% for(var i=0; i<teams.length; i++) {%>
+            <br />
+            <div class="col d-flex justify-content-center">
+
+                <div class="card" style="width: 18rem; ">
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; align-content: space-between; margin-top: 32px;">
+                        <h5 class="card-title"><%= teams[i].teamname %></h5>
+                        <form method="post" action="/team/edit/<%=teams[i].teamid%>">
+                            <!-- <input type="submit" value="Edit"  style="background-color:24A0ED"/> -->
+                            <button class="btn btn-success btn-sm rounded-10" type="submit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                        </form>
+                        <form method="post" action="/team/delete/<%=teams[i].teamid%>">
+                            <!-- <input type="submit" value="Delete"  style="background-color:24A0ED"/> -->
+
+                            <button class="btn btn-danger btn-sm rounded-10" type="submit" data-toggle="tooltip"
+                                data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                        </form>
+                    
+                        <br />
+                    </div>
+                </div>
+                </div>
+            </div>
             <%} %>
 
 
