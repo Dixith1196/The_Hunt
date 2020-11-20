@@ -76,6 +76,11 @@ router.get('/', (req, res) => {
   router.get('/team/createTeam', (req, res, next) => {
     res.render('./team/create', { title: "Team", require: axios})
   })
+
+  router.get('/team/editTeam', (req, res, next) => {
+    console.log("----edit hits")
+    res.render('./team/edit', { title: "Team", require: axios})
+  })
   
   router.get('/team/invitePlayers', (req, res, next) => {
     res.render('./team/invitePlayers', { title: "Invite Players"})
