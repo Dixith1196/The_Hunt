@@ -1,14 +1,14 @@
 <body>
     <main>
 
- <form>
+ <form action = "/team/update/<%= teamid %>" method="POST">
     <div class="container">
         <div class="form-group">
-            <input id="tname" class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4 bg-white" type="text"
-                placeholder="Enter Team Name">
+            <input id="teamname" class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4 bg-white" type="text"
+               name="teamname" value="<%= teamname %>">
             </input>
         </div>
-        <button type="submit" onclick="createTeam()"  class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4" style="background-color: #00674c; color: white; padding: 0px;border-radius: 6px;align-self: center; height: 30px;width: 120px;justify-content: center;" value="teamSubmit" id="teamSubmit">Submit
+        <button type="submit" onclick="editTeam()"  class="col-25 d-flex align-items-center mx-auto mt-5 p-1 flex-column col-lg-4" style="background-color: #00674c; color: white; padding: 0px;border-radius: 6px;align-self: center; height: 30px;width: 120px;justify-content: center;" value="teamSubmit" id="teamSubmit">Submit</button>
         </div>
 </form>
 <script>
@@ -18,9 +18,10 @@
       const body = {
         teamname: teamName
       }
-      axios.post('/team/edit/%=teams[i].teamid%>', body)
-      .then((res) => alert(res))
-      .catch((e) => alert(e))
+    //   axios.post('/team/edit/%=teams[i].teamid%>', body)
+    //   .then((res) => alert(res))
+    //   .catch((e) => alert(e))
+    location.href='/team/update'
     }else{
         alert("Team Name is empty")
     }

@@ -40,26 +40,20 @@ api.post('/delete/:id', (req, res) => {
 
 // GET one
 
-api.post('/edit/:teamId', (req, res) => {
+api.post('/edit/:teamid', (req, res) => {
   console.log(` update request ${req.body}`)
-  const tId = parseInt(req.params.teamId)
+  const tId = parseInt(req.params.teamid)
   // console.log(`Handling SAVING ID:${id}`)
-  TeamModel.updateOne({teamid: tId },
-    { 
-      // use mongoose field update operator $set
-      $set: {
-        teamname: req.body.teamname
-      }
-    },
-    (err, item) => {
-      if (err) { return res.end(`Record with the specified id not found`) }
-      return res.json({
-        "error": false,
-        data: TeamModel
+  TeamModel.find({ teamid: tId }, (err, results) => 
+  {
+    if (err) { return res.end('could not find') }
+    console.log(results) 
+    const tName = results[0].teamname;
+      res.render('team/edit.ejs',{ tId, tName})
     })
 
     })
-  })
+  
 
 
   // POST new
@@ -86,23 +80,23 @@ api.post('/edit/:teamId', (req, res) => {
   })
 
 // POST update with id
-api.post('/save/:id', (req, res) => {
-  console.log(`Handling SAVE request ${req}`)
-    const id = parseInt(req.params.id)
-    console.log(`Handling SAVING ID:${id}`)
-    TeamModel.updateOne({teamid: id },
-      { // use mongoose field update operator $set
+api.post('/update/:id', (req, res) => {
+  console.log(`Handling update request ${req}`)
+    const tid = parseInt(req.params.id)
+    console.log(`Handling SAVING ID:${tid}`)
+    TeamModel.updateOne({teamid: tid },
+      { 
+        // use mongoose field update operator $set
         $set: {
-          teamid: parseInt(req.body.teamid),
           teamname: req.body.teamname,
         }
       },
       (err, item) => {
-        if (err) { return res.end(`Record with the specified id not found`) }
+        if (err) { return res.end(`Record item not found`) }
         console.log(`ORIGINAL VALUES ${JSON.stringify(item)}`)
         console.log(`UPDATED VALUES: ${JSON.stringify(req.body)}`)
         console.log(`SAVING UPDATED team ${JSON.stringify(item)}`)
-        return res.redirect('/teamController')
+        return res.redirect('/team/getTeam')
       })
   })
 

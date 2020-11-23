@@ -15,9 +15,11 @@
                         <div style="display: flex; flex-direction: row; justify-content: space-between; align-content: space-between; margin-top: 32px;">
                         <h5 id="teamEdit" class="text-info" class="card-title"><%= teams[i].teamname %></h5>
                         
+                        <form method="post" action="/team/edit/<%=teams[i].teamid%>">
                             <!-- <input type="submit" value="Edit"  style="background-color:24A0ED"/> -->
-                            <button id="editBtn" class="btn btn-success btn-sm rounded-10" onclick="goToEdit()" type="submit" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
-                     
+                            <button id="editBtn" class="btn btn-success btn-sm rounded-10" type="submit"
+                             data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                        </form>
                         <form method="post" action="/team/delete/<%=teams[i].teamid%>">
                             <!-- <input type="submit" value="Delete"  style="background-color:24A0ED"/> -->
 
