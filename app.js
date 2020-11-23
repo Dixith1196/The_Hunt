@@ -68,25 +68,15 @@ function seed(collectionName) {
     })
   })
 }
-//environment variables
-// require('dotenv').config();
 
-// const uri = process.env.ATLAS_URI;
-// mongoose.connect(uri,{useNewUrlParser:true,useCreateIndex:true});
-// const connection = mongoose.connection;
-// connection.once('open', () => {
-// console.log("Connected Database Successfully");
-// });
-
-// specify desired view engine (EJS)
 
 // set the root view folder
 
 connection.once('open', function () {
   console.log('MongoDB event open')
   console.log(`MongoDB connected ${dbURI}\n`)
-
-  // seed('user')
+  mongoose.connection.db.dropCollection('user')
+  seed('user')
   // seed('team')
 
 })
@@ -117,9 +107,5 @@ app.get("/",(req,res)=>{
     res.send("Hello World!!")
 })
 
-// app.listen(3000, () =>{
-//     console.log("The server is running on the port 3000")
-//     console.log('Press CTRL-C to stop\n')
-// })
 
 module.exports = router;
